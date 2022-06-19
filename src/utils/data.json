@@ -1,0 +1,36 @@
+{
+  "transactions": [
+    {
+      "id": 1,
+      "name": "Padaria",
+      "price": 25,
+      "type": "outcome",
+      "category": "Alimentação",
+      "date": "2020-01-01"
+    },
+    {
+      "id": 2,
+      "name": "Salário",
+      "price": 5000,
+      "type": "income",
+      "category": "Salário",
+      "date": "2020-01-01"
+    },
+    {
+      "id": 3,
+      "name": "Supermercado",
+      "price": 1500,
+      "type": "outcome",
+      "category": "Alimentação",
+      "date": "2020-01-01"
+    },
+    {
+      "id": 4,
+      "name": "Call of Duty",
+      "price": 25,
+      "type": "outcome",
+      "category": "Hobbys",
+      "date": "2020-01-01"
+    }
+  ]
+}
