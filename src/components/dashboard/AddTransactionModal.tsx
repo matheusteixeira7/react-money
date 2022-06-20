@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { BsArrowDownCircle, BsArrowUpCircle } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 
@@ -9,7 +9,8 @@ interface IProps {
 
 export const AddTransactionModal = ({ isOpen, handleModal }: IProps) => {
   const [type, setType] = useState("");
-  const handleNewTransaction = (e: any) => {
+
+  const handleNewTransaction = (e: FormEvent) => {
     console.log("new transaction");
     handleModal();
     e.preventDefault();
@@ -80,5 +81,3 @@ export const AddTransactionModal = ({ isOpen, handleModal }: IProps) => {
     </div>
   );
 };
-
-// <AddTransactionModal isOpen={modalOpen} handleModal={handleModal} />
