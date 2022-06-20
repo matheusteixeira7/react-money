@@ -92,8 +92,8 @@ const Home: NextPage = () => {
           updateData={updateData}
         />
       </Modal>
-      <div className="transform -translate-y-24">
-        <div className="flex overflow-auto mb-8 pl-6">
+      <div className="transform -translate-y-24 max-w-4xl m-auto">
+        <div className="flex overflow-auto m-auto border border-red-500 mb-8 pl-6">
           <MainCard
             title="Entradas"
             value={income}
