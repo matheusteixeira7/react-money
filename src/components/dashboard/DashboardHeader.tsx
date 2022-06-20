@@ -1,6 +1,10 @@
 import { FiDollarSign } from "react-icons/fi";
 
-const DashboardHeader = () => {
+interface IProps {
+  openModal: () => void;
+}
+
+const DashboardHeader = ({ openModal }: IProps) => {
   return (
     <div>
       <header className="flex items-start justify-between bg-primary h-52 p-6">
@@ -11,7 +15,10 @@ const DashboardHeader = () => {
           <span className="text-white font-semibold text-lg">Dev Money</span>
         </div>
 
-        <button className="bg-button hover:bg-buttonHover active:bg-buttonActive transition-all font-semibold text-white py-2 px-4 rounded">
+        <button
+          onClick={openModal}
+          className="bg-button hover:bg-buttonHover active:bg-buttonActive transition-all font-semibold text-white py-2 px-4 rounded"
+        >
           Nova transação
         </button>
       </header>
