@@ -1,17 +1,24 @@
+import axios from "axios";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { BsArrowDownCircle, BsArrowUpCircle } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
+import { v4 as uuidv4 } from "uuid";
 
 interface IProps {
   handleModal: () => void;
+  updateData: () => void;
 }
 
-export const AddTransactionModal = ({ handleModal }: IProps) => {
+export const AddTransactionModal = ({ handleModal, updateData }: IProps) => {
   const [transactionType, setTransactionType] = useState("");
 
   const handleCloseModal = () => {
     handleModal();
+  };
+
+  const handleUpdateData = () => {
+    updateData();
   };
 
   const formik = useFormik({
@@ -22,13 +29,26 @@ export const AddTransactionModal = ({ handleModal }: IProps) => {
     },
     onSubmit: (values) => {
       const data = {
+        id: uuidv4(),
         title: values.title,
         value: values.value,
         type: transactionType,
         category: values.category,
+        date: new Date().toLocaleDateString("pt-BR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "2-digit",
+        }),
       };
 
-      console.log(data);
+      try {
+        axios.post("http://localhost:3333/transactions", data);
+
+        handleUpdateData();
+        handleCloseModal();
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 
