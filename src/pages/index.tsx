@@ -81,7 +81,7 @@ const Home: NextPage = () => {
         className="bg-background p-8 rounded w-full"
         contentLabel="Adicione uma transação"
       >
-        <AddTransactionModal isOpen={modalOpen} handleModal={handleModal} />
+        <AddTransactionModal handleModal={handleModal} />
       </Modal>
       <div className="transform -translate-y-24">
         <div className="flex overflow-auto mb-8 pl-6">

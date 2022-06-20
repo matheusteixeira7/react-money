@@ -1,26 +1,35 @@
-import { FormEvent, useEffect, useState } from "react";
+import { useFormik } from "formik";
+import { useState } from "react";
 import { BsArrowDownCircle, BsArrowUpCircle } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 
 interface IProps {
-  isOpen: boolean;
   handleModal: () => void;
 }
 
-export const AddTransactionModal = ({ isOpen, handleModal }: IProps) => {
-  const [type, setType] = useState("");
+export const AddTransactionModal = ({ handleModal }: IProps) => {
+  const [transactionType, setTransactionType] = useState("");
 
-  const handleNewTransaction = (e: FormEvent) => {
-    console.log("new transaction");
-    handleModal();
-    e.preventDefault();
-  };
   const handleCloseModal = () => {
     handleModal();
   };
 
-  useEffect(() => {
-    console.log(type);
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+      value: "",
+      category: "",
+    },
+    onSubmit: (values) => {
+      const data = {
+        title: values.title,
+        value: values.value,
+        type: transactionType,
+        category: values.category,
+      };
+
+      console.log(data);
+    },
   });
 
   return (
@@ -35,34 +44,40 @@ export const AddTransactionModal = ({ isOpen, handleModal }: IProps) => {
         />
       </div>
 
-      <form onSubmit={handleNewTransaction}>
+      <form onSubmit={formik.handleSubmit}>
         <input
           className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 mt-6 leading-tight focus:outline-none focus:bg-white"
-          id="grid-first-name"
+          id="title"
+          name="title"
           type="text"
           placeholder="Nome"
+          onChange={formik.handleChange}
+          value={formik.values.title}
         ></input>
         <input
           className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-          id="grid-first-name"
+          id="value"
+          name="value"
           type="number"
           placeholder="Valor"
+          onChange={formik.handleChange}
+          value={formik.values.value}
         ></input>
         <div className="grid grid-cols-2 gap-3 mb-3">
           <div
             className={`flex justify-center items-center hover:cursor-pointer border border-gray-300 py-3 px-4 rounded ${
-              type === "income" ? "bg-green-100" : "bg-white"
+              transactionType === "income" ? "bg-green-100" : "bg-white"
             }`}
-            onClick={() => setType("income")}
+            onClick={() => setTransactionType("income")}
           >
             <BsArrowUpCircle className={`mr-2 text-green-500 text-2xl`} />
             <span className="">Entrada</span>
           </div>
           <div
             className={`flex justify-center items-center  hover:cursor-pointer border border-gray-300 py-3 px-4 rounded ${
-              type === "outcome" ? "bg-red-100" : "bg-white"
+              transactionType === "outcome" ? "bg-red-100" : "bg-white"
             }`}
-            onClick={() => setType("outcome")}
+            onClick={() => setTransactionType("outcome")}
           >
             <BsArrowDownCircle className={`mr-2 text-red-500 text-2xl`} />
             <span className="">Saída</span>
@@ -70,11 +85,17 @@ export const AddTransactionModal = ({ isOpen, handleModal }: IProps) => {
         </div>
         <input
           className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-          id="grid-first-name"
+          id="category"
+          name="category"
           type="text"
           placeholder="Categoria"
+          onChange={formik.handleChange}
+          value={formik.values.category}
         ></input>
-        <button className="bg-secondary hover:bg-buttonHover active:bg-buttonActive transition-all font-semibold text-white py-2 px-4 rounded w-full">
+        <button
+          type="submit"
+          className="bg-secondary hover:bg-buttonHover active:bg-buttonActive transition-all font-semibold text-white py-2 px-4 rounded w-full"
+        >
           Cadastrar
         </button>
       </form>
