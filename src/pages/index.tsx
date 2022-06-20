@@ -29,7 +29,7 @@ const Home: NextPage = () => {
   const [income, setIncome] = useState(0);
   const [outcome, setOutcome] = useState(0);
   const [balance, setBalance] = useState(0);
-  const [modalOpen, setModalOpen] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleModal = () => {
     setModalOpen(!modalOpen);
