@@ -118,23 +118,26 @@ const Home: NextPage = () => {
             <span className="text-xl">Listagem</span>
             <span className="font-medium text-sm text-text">
               {transactions.length}{" "}
-              {transactions.length <= 1 ? "item" : "itens"}
+              {transactions.length === 1 ? "item" : "itens"}
             </span>
           </div>
         </div>
-        {transactions.map((transaction) => (
-          <TransactionList
-            key={transaction.id}
-            title={transaction.title}
-            value={transaction.value.toLocaleString("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            })}
-            transactionType={transaction.type}
-            category={transaction.category}
-            date={transaction.date}
-          />
-        ))}
+        {transactions
+          .slice(0)
+          .reverse()
+          .map((transaction) => (
+            <TransactionList
+              key={transaction.id}
+              title={transaction.title}
+              value={transaction.value.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}
+              transactionType={transaction.type}
+              category={transaction.category}
+              date={transaction.date}
+            />
+          ))}
       </div>
     </>
   );
