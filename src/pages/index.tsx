@@ -83,8 +83,8 @@ const Home: NextPage = () => {
         isOpen={modalOpen}
         onRequestClose={handleRequestClose}
         ariaHideApp={false}
-        overlayClassName="bg-gray-900 bg-opacity-50 flex justify-center items-end fixed inset-0"
-        className="bg-background p-8 rounded w-full"
+        overlayClassName="bg-gray-900 bg-opacity-50 flex justify-center items-end md:items-center fixed inset-0"
+        className="bg-background p-8 rounded w-full md:max-w-xl"
         contentLabel="Adicione uma transação"
       >
         <AddTransactionModal
@@ -93,7 +93,7 @@ const Home: NextPage = () => {
         />
       </Modal>
       <div className="transform -translate-y-24 max-w-4xl m-auto">
-        <div className="flex overflow-auto m-auto border border-red-500 mb-8 pl-6">
+        <div className="grid grid-flow-col auto-cols-max gap-4 md:justify-between overflow-auto mb-8 pl-6">
           <MainCard
             title="Entradas"
             value={income}
@@ -116,7 +116,10 @@ const Home: NextPage = () => {
         <div className="px-6">
           <div className="flex justify-between items-center mb-4">
             <span className="text-xl">Listagem</span>
-            <span className="font-medium text-sm text-text">4 itens</span>
+            <span className="font-medium text-sm text-text">
+              {transactions.length}{" "}
+              {transactions.length <= 1 ? "item" : "itens"}
+            </span>
           </div>
         </div>
         {transactions.map((transaction) => (

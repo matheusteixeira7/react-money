@@ -33,7 +33,7 @@ export const MainCard = ({
     transactionType === "total" ? "text-white" : "text-text";
 
   return (
-    <div className={`p-6 rounded-lg min-w-fit mr-4 ${cardBgColor}`}>
+    <div className={`p-6 rounded-lg mr-4 ${cardBgColor}`}>
       <header className="flex justify-between">
         <span className={`${cardTextColor} text-sm font-normal`}>{title}</span>
         {transactionIcon}
