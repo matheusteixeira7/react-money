@@ -26,14 +26,19 @@ export const MainCard = ({
       <BsCurrencyDollar className="text-white text-2xl" />
     );
 
-  const cardBgColor = transactionType === "total" ? "bg-secondary" : "bg-white";
+  const cardBgColor =
+    transactionType === "total" && value >= 0
+      ? "bg-secondary"
+      : transactionType === "total" && value < 0
+      ? "bg-red-400"
+      : "bg-white";
   const cardTextColor =
     transactionType === "total" ? "text-white" : "text-titles";
   const LastTransactionTextColor =
     transactionType === "total" ? "text-white" : "text-text";
 
   return (
-    <div className={`p-6 rounded-lg mr-4 ${cardBgColor}`}>
+    <div className={`p-6 rounded-lg mr-4 ${cardBgColor} min-w-[240px]`}>
       <header className="flex justify-between">
         <span className={`${cardTextColor} text-sm font-normal`}>{title}</span>
         {transactionIcon}
@@ -47,8 +52,16 @@ export const MainCard = ({
             currencyDisplay: "symbol",
           })}
         </span>
-        <span className={`font-normal text-sm ${LastTransactionTextColor}`}>
-          Última entrada dia {lastTransaction}
+        <span
+          className={`font-normal text-sm ${LastTransactionTextColor} ${
+            transactionType === "total" ? "hidden" : ""
+          }`}
+        >
+          {lastTransaction === ""
+            ? ""
+            : `Última ${
+                transactionType === "outcome" ? "saída" : "entrada"
+              } dia ${new Date(lastTransaction).toLocaleDateString("pt-BR")}`}
         </span>
       </div>
     </div>

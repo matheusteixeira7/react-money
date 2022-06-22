@@ -7,7 +7,7 @@ import { DashboardHeader } from "../components/dashboard/DashboardHeader";
 import { MainCard } from "../components/dashboard/MainCard";
 import { TransactionList } from "../components/dashboard/TransactionList";
 
-interface IProps {
+interface IHomeProps {
   id: string;
   title: string;
   value: number;
@@ -17,10 +17,12 @@ interface IProps {
 }
 
 const Home: NextPage = () => {
-  const [transactions, setTransactions] = useState<IProps[]>([]);
+  const [transactions, setTransactions] = useState<IHomeProps[]>([]);
   const [income, setIncome] = useState(0);
   const [outcome, setOutcome] = useState(0);
   const [balance, setBalance] = useState(0);
+  const [latestIncomeDate, setLatestIncomeDate] = useState("");
+  const [latestExpenseDate, setLatestExpenseDate] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [fetch, setFetch] = useState(false);
 
@@ -67,9 +69,45 @@ const Home: NextPage = () => {
       return calculateIncome() - calculateExpenses();
     };
 
+    const calculateNewestIncomeTransaction = () => {
+      const newestIncomeTransaction = transactions.reduce(
+        (acc, curr) => {
+          if (curr.type === "income") {
+            if (acc.date < curr.date) {
+              return curr;
+            }
+            return acc;
+          }
+          return acc;
+        },
+        { date: "", title: "", value: 0, type: "", category: "" }
+      );
+
+      setLatestIncomeDate(newestIncomeTransaction.date);
+    };
+
+    const calculateLatestExpenseTransaction = () => {
+      const latestExpenseTransaction = transactions.reduce(
+        (acc, curr) => {
+          if (curr.type === "outcome") {
+            if (acc.date < curr.date) {
+              return curr;
+            }
+            return acc;
+          }
+          return acc;
+        },
+        { date: "", title: "", value: 0, type: "", category: "" }
+      );
+
+      setLatestExpenseDate(latestExpenseTransaction.date);
+    };
+
     setIncome(calculateIncome);
     setOutcome(calculateExpenses);
     setBalance(calculateBalance);
+    calculateNewestIncomeTransaction();
+    calculateLatestExpenseTransaction();
   }, [transactions]);
 
   const handleOpenModal = () => {
@@ -98,13 +136,13 @@ const Home: NextPage = () => {
             title="Entradas"
             value={income}
             transactionType="income"
-            lastTransaction="12/12/2020"
+            lastTransaction={latestIncomeDate}
           />
           <MainCard
             title="Saídas"
             value={outcome}
             transactionType="outcome"
-            lastTransaction="12/12/2020"
+            lastTransaction={latestExpenseDate}
           />
           <MainCard
             title="Total"

@@ -28,7 +28,13 @@ export const TransactionList = ({
 
         <div className="flex justify-between text-sm text-text mt-5">
           <span>{category}</span>
-          <span>{date}</span>
+          <span>
+            {new Date(date).toLocaleDateString("pt-BR", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "2-digit",
+            })}
+          </span>
         </div>
       </div>
     </div>
