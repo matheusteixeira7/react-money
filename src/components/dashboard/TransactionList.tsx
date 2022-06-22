@@ -23,7 +23,7 @@ export const TransactionList = ({
       <div className="flex flex-col bg-white p-4 rounded-lg">
         <span className="text-sm">{title}</span>
         <span className={`text-xl ${transactionTypeColor}`}>
-          {transactionValue + value}
+          {`${transactionValue} ${value}`}
         </span>
 
         <div className="flex justify-between text-sm text-text mt-5">

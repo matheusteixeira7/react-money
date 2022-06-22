@@ -1,21 +1,19 @@
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
-import { useState } from "react";
 import { BsArrowDownCircle, BsArrowUpCircle } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import { v4 as uuidv4 } from "uuid";
 import * as Yup from "yup";
 
 interface IAddTransactionModalProps {
-  handleModal: () => void;
+  handleCloseModal: () => void;
   updateData: () => void;
 }
 
 export const AddTransactionModal = ({
-  handleModal,
+  handleCloseModal,
   updateData,
 }: IAddTransactionModalProps) => {
-  const [transactionType, setTransactionType] = useState("");
   const addTransactionSchema = Yup.object().shape({
     title: Yup.string().required("Nome é obrigatório"),
     value: Yup.number().required("Valor é obrigatório"),
@@ -30,14 +28,6 @@ export const AddTransactionModal = ({
     category: "",
   };
 
-  const handleCloseModal = () => {
-    handleModal();
-  };
-
-  const handleUpdateData = () => {
-    updateData();
-  };
-
   return (
     <div className="">
       <div className="flex justify-between items-center">
@@ -46,7 +36,7 @@ export const AddTransactionModal = ({
         </span>
         <IoMdClose
           className="text-titles text-xl hover:cursor-pointer"
-          onClick={handleCloseModal}
+          onClick={() => handleCloseModal()}
         />
       </div>
 
@@ -66,7 +56,7 @@ export const AddTransactionModal = ({
           try {
             axios.post("http://localhost:3333/transactions", data);
 
-            handleUpdateData();
+            updateData();
             handleCloseModal();
           } catch (error) {
             console.log(error);

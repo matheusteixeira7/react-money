@@ -32,8 +32,10 @@ export const MainCard = ({
       : transactionType === "total" && value < 0
       ? "bg-red-400"
       : "bg-white";
+
   const cardTextColor =
     transactionType === "total" ? "text-white" : "text-titles";
+
   const LastTransactionTextColor =
     transactionType === "total" ? "text-white" : "text-text";
 

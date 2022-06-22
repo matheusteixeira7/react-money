@@ -35,41 +35,34 @@ const Home: NextPage = () => {
     fetchData();
   }, [fetch]);
 
-  const updateData = () => {
-    setFetch(!fetch);
-  };
-
-  const handleModal = () => {
-    setModalOpen(!modalOpen);
-  };
-  const handleRequestClose = () => {
-    setModalOpen(false);
-  };
-
   useEffect(() => {
-    const calculateIncome = (): number => {
-      return transactions.reduce((acc, curr) => {
+    const calculateIncome = () => {
+      const income = transactions.reduce((acc, curr) => {
         if (curr.type === "income") {
           return acc + curr.value;
         }
         return acc;
       }, 0);
+
+      setIncome(income);
     };
 
-    const calculateExpenses = (): number => {
-      return transactions.reduce((acc, curr) => {
+    const calculateExpenses = () => {
+      const outcome = transactions.reduce((acc, curr) => {
         if (curr.type === "outcome") {
           return acc + curr.value;
         }
         return acc;
       }, 0);
+
+      setOutcome(outcome);
     };
 
     const calculateBalance = (): number => {
-      return calculateIncome() - calculateExpenses();
+      return income - outcome;
     };
 
-    const calculateNewestIncomeTransaction = () => {
+    const calculateLatestIncomeTransaction = () => {
       const newestIncomeTransaction = transactions.reduce(
         (acc, curr) => {
           if (curr.type === "income") {
@@ -103,33 +96,30 @@ const Home: NextPage = () => {
       setLatestExpenseDate(latestExpenseTransaction.date);
     };
 
-    setIncome(calculateIncome);
-    setOutcome(calculateExpenses);
+    calculateIncome();
+    calculateExpenses();
     setBalance(calculateBalance);
-    calculateNewestIncomeTransaction();
+    calculateLatestIncomeTransaction();
     calculateLatestExpenseTransaction();
-  }, [transactions]);
-
-  const handleOpenModal = () => {
-    setModalOpen(true);
-  };
+  }, [income, outcome, transactions]);
 
   return (
     <>
-      <DashboardHeader openModal={handleOpenModal} />
+      <DashboardHeader openModal={() => setModalOpen(true)} />
       <Modal
         isOpen={modalOpen}
-        onRequestClose={handleRequestClose}
+        onRequestClose={() => setModalOpen(false)}
         ariaHideApp={false}
         overlayClassName="bg-gray-900 bg-opacity-50 flex justify-center items-end md:items-center fixed inset-0"
         className="bg-background p-8 rounded w-full md:max-w-xl"
         contentLabel="Adicione uma transação"
       >
         <AddTransactionModal
-          handleModal={handleModal}
-          updateData={updateData}
+          handleCloseModal={() => setModalOpen(!modalOpen)}
+          updateData={() => setFetch(!fetch)}
         />
       </Modal>
+
       <div className="transform -translate-y-24 max-w-4xl m-auto">
         <div className="grid grid-flow-col auto-cols-max gap-4 md:justify-between overflow-auto mb-8 pl-6">
           <MainCard
@@ -151,6 +141,7 @@ const Home: NextPage = () => {
             lastTransaction="12/12/2020"
           />
         </div>
+
         <div className="px-6">
           <div className="flex justify-between items-center mb-4">
             <span className="text-xl">Listagem</span>
@@ -160,6 +151,7 @@ const Home: NextPage = () => {
             </span>
           </div>
         </div>
+
         {transactions
           .slice(0)
           .reverse()
