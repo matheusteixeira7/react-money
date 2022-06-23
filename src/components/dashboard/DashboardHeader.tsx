@@ -19,7 +19,7 @@ const DashboardHeader = ({ openModal }: IProps) => {
           </div>
           <button
             onClick={openModal}
-            className="bg-button hover:bg-buttonHover active:bg-buttonActive transition-all font-semibold text-white py-2 px-4 rounded text-sm md:text-lg ml-4 md:ml-0"
+            className="bg-button hover:bg-gray-100 active:bg-gray-200 transition-all ease-in-out font-semibold text-white py-2 px-4 rounded text-sm md:text-lg ml-4 md:ml-0"
           >
             Nova transação
           </button>
