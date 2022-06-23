@@ -109,9 +109,7 @@ function Home() {
 
   useEffect(() => {
     if (!session) {
-      setTimeout(() => {
-        router.push("/signin");
-      }, 3000);
+      router.push("/signin");
     }
   });
 
@@ -184,11 +182,14 @@ function Home() {
         </div>
       </>
     );
-  } else {
+  }
+
+  if (!session) {
     return (
-      <div>
+      <div className="h-screen w-full flex justify-center items-center">
         <h1>
           Você não está logado. Você será redirecionado para a página de login.
+          {/* <>{redirect()}</> */}
         </h1>
       </div>
     );

@@ -1,4 +1,6 @@
+import { signOut } from "next-auth/react";
 import { FiDollarSign } from "react-icons/fi";
+import { MdLogout } from "react-icons/md";
 
 interface IProps {
   openModal: () => void;
@@ -13,16 +15,27 @@ const DashboardHeader = ({ openModal }: IProps) => {
             <div className="bg-secondary p-2 rounded-full mr-2">
               <FiDollarSign className="text-white text-xl" />
             </div>
+
             <span className="text-white font-semibold text-sm md:text-lg">
               Dev Money
             </span>
           </div>
-          <button
-            onClick={openModal}
-            className="bg-button hover:bg-gray-100 active:bg-gray-200 transition-all ease-in-out font-semibold text-white py-2 px-4 rounded text-sm md:text-lg ml-4 md:ml-0"
-          >
-            Nova transação
-          </button>
+
+          <div className="flex items-center justify-between">
+            <button
+              onClick={openModal}
+              className="bg-button hover:brightness-110 active:brightness-90 transition-all ease-in-out font-semibold text-white py-2 px-4 rounded text-sm md:text-lg ml-4 md:ml-0"
+            >
+              Nova transação
+            </button>
+
+            <span
+              title="Fazer logout"
+              onClick={() => signOut({ callbackUrl: "/signin" })}
+            >
+              <MdLogout className="text-white text-2xl ml-4 cursor-pointer hover:brightness-110 active:brightness-90 transition-all ease-in-out" />
+            </span>
+          </div>
         </div>
       </header>
     </div>
