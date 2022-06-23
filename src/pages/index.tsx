@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { NextPageContext } from "next";
+import { getSession, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { AddTransactionModal } from "../components/dashboard/AddTransactionModal";
@@ -17,9 +17,8 @@ interface IHomeProps {
   date: string;
 }
 
-function Home() {
-  const { data: session } = useSession();
-  const router = useRouter();
+export default function Home() {
+  const { data: session, status } = useSession();
 
   const [transactions, setTransactions] = useState<IHomeProps[]>([]);
   const [income, setIncome] = useState(0);
@@ -107,93 +106,91 @@ function Home() {
     calculateLatestExpenseTransaction();
   }, [income, outcome, transactions]);
 
-  useEffect(() => {
-    if (!session) {
-      router.push("/signin");
-    }
-  });
+  return (
+    <>
+      <DashboardHeader openModal={() => setModalOpen(true)} />
+      <Modal
+        isOpen={modalOpen}
+        onRequestClose={() => setModalOpen(false)}
+        ariaHideApp={false}
+        overlayClassName="bg-gray-900 bg-opacity-50 flex justify-center items-end md:items-center fixed inset-0"
+        className="bg-background p-8 rounded w-full md:max-w-xl"
+        contentLabel="Adicione uma transação"
+      >
+        <AddTransactionModal
+          handleCloseModal={() => setModalOpen(!modalOpen)}
+          updateData={() => setFetch(!fetch)}
+        />
+      </Modal>
 
-  if (session) {
-    return (
-      <>
-        <DashboardHeader openModal={() => setModalOpen(true)} />
-        <Modal
-          isOpen={modalOpen}
-          onRequestClose={() => setModalOpen(false)}
-          ariaHideApp={false}
-          overlayClassName="bg-gray-900 bg-opacity-50 flex justify-center items-end md:items-center fixed inset-0"
-          className="bg-background p-8 rounded w-full md:max-w-xl"
-          contentLabel="Adicione uma transação"
-        >
-          <AddTransactionModal
-            handleCloseModal={() => setModalOpen(!modalOpen)}
-            updateData={() => setFetch(!fetch)}
+      <div className="transform -translate-y-24 max-w-4xl m-auto">
+        <div className="grid grid-flow-col auto-cols-max gap-4 md:justify-between overflow-auto mb-8 pl-6">
+          <MainCard
+            title="Entradas"
+            value={income}
+            transactionType="income"
+            lastTransaction={latestIncomeDate}
           />
-        </Modal>
-
-        <div className="transform -translate-y-24 max-w-4xl m-auto">
-          <div className="grid grid-flow-col auto-cols-max gap-4 md:justify-between overflow-auto mb-8 pl-6">
-            <MainCard
-              title="Entradas"
-              value={income}
-              transactionType="income"
-              lastTransaction={latestIncomeDate}
-            />
-            <MainCard
-              title="Saídas"
-              value={outcome}
-              transactionType="outcome"
-              lastTransaction={latestExpenseDate}
-            />
-            <MainCard
-              title="Total"
-              value={balance}
-              transactionType="total"
-              lastTransaction="12/12/2020"
-            />
-          </div>
-
-          <div className="px-6">
-            <div className="flex justify-between items-center mb-4">
-              <span className="text-xl">Listagem</span>
-              <span className="font-medium text-sm text-text">
-                {transactions.length}{" "}
-                {transactions.length === 1 ? "item" : "itens"}
-              </span>
-            </div>
-          </div>
-
-          {transactions
-            .slice(0)
-            .reverse()
-            .map((transaction) => (
-              <TransactionList
-                key={transaction.id}
-                title={transaction.title}
-                value={transaction.value.toLocaleString("pt-BR", {
-                  style: "currency",
-                  currency: "BRL",
-                })}
-                transactionType={transaction.type}
-                category={transaction.category}
-                date={transaction.date}
-              />
-            ))}
+          <MainCard
+            title="Saídas"
+            value={outcome}
+            transactionType="outcome"
+            lastTransaction={latestExpenseDate}
+          />
+          <MainCard
+            title="Total"
+            value={balance}
+            transactionType="total"
+            lastTransaction="12/12/2020"
+          />
         </div>
-      </>
-    );
-  }
 
-  if (!session) {
-    return (
-      <div className="h-screen w-full flex justify-center items-center">
-        <h1>
-          Você não está logado. Você será redirecionado para a página de login.
-          {/* <>{redirect()}</> */}
-        </h1>
+        <div className="px-6">
+          <div className="flex justify-between items-center mb-4">
+            <span className="text-xl">Listagem</span>
+            <span className="font-medium text-sm text-text">
+              {transactions.length}{" "}
+              {transactions.length === 1 ? "item" : "itens"}
+            </span>
+          </div>
+        </div>
+
+        {transactions
+          .slice(0)
+          .reverse()
+          .map((transaction) => (
+            <TransactionList
+              key={transaction.id}
+              title={transaction.title}
+              value={transaction.value.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}
+              transactionType={transaction.type}
+              category={transaction.category}
+              date={transaction.date}
+            />
+          ))}
       </div>
-    );
-  }
+    </>
+  );
 }
 
-export default Home;
+export async function getServerSideProps(context: NextPageContext) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/signin",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
+}

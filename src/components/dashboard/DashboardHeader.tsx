@@ -24,7 +24,7 @@ const DashboardHeader = ({ openModal }: IProps) => {
           <div className="flex items-center justify-between">
             <button
               onClick={openModal}
-              className="bg-button hover:brightness-110 active:brightness-90 transition-all ease-in-out font-semibold text-white py-2 px-4 rounded text-sm md:text-lg ml-4 md:ml-0"
+              className="bg-primary brightness-125 p-3 rounded-[4px] text-white font-semibold my-6 hover:brightness-90 active:brightness-90 transition-all ease-in-out"
             >
               Nova transação
             </button>
