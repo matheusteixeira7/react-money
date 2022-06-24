@@ -19,11 +19,11 @@ export const MainCard = ({
 }: IMainCardProps) => {
   const transactionIcon =
     transactionType === "income" ? (
-      <BsArrowUpCircle className="text-green-500 text-2xl" />
+      <BsArrowUpCircle className="text-2xl text-green-500" />
     ) : transactionType === "outcome" ? (
-      <BsArrowDownCircle className="text-red-500 text-2xl" />
+      <BsArrowDownCircle className="text-2xl text-red-500" />
     ) : (
-      <BsCurrencyDollar className="text-white text-2xl" />
+      <BsCurrencyDollar className="text-2xl text-white" />
     );
 
   const cardBgColor =
@@ -40,14 +40,14 @@ export const MainCard = ({
     transactionType === "total" ? "text-white" : "text-text";
 
   return (
-    <div className={`p-6 rounded-lg mr-4 ${cardBgColor} min-w-[240px]`}>
+    <div className={`mr-4 rounded-lg p-6 ${cardBgColor} min-w-[240px]`}>
       <header className="flex justify-between">
         <span className={`${cardTextColor} text-sm font-normal`}>{title}</span>
         {transactionIcon}
       </header>
 
-      <div className="flex flex-col mt-10">
-        <span className={`font-medium text-3xl ${cardTextColor}`}>
+      <div className="mt-10 flex flex-col">
+        <span className={`text-3xl font-medium ${cardTextColor}`}>
           {value.toLocaleString("pt-BR", {
             style: "currency",
             currency: "BRL",
@@ -55,7 +55,7 @@ export const MainCard = ({
           })}
         </span>
         <span
-          className={`font-normal text-sm ${LastTransactionTextColor} ${
+          className={`text-sm font-normal ${LastTransactionTextColor} ${
             transactionType === "total" ? "hidden" : ""
           }`}
         >

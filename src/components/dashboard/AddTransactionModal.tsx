@@ -30,12 +30,12 @@ export const AddTransactionModal = ({
 
   return (
     <div className="">
-      <div className="flex justify-between items-center">
-        <span className="font-semibold text-titles text-xl">
+      <div className="flex items-center justify-between">
+        <span className="text-xl font-semibold text-titles">
           Cadastrar transação
         </span>
         <IoMdClose
-          className="text-titles text-xl hover:cursor-pointer"
+          className="text-xl text-titles hover:cursor-pointer"
           onClick={() => handleCloseModal()}
         />
       </div>
@@ -69,58 +69,58 @@ export const AddTransactionModal = ({
               name="title"
               type="text"
               placeholder="Nome"
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-300 rounded py-3 px-4 mt-6 leading-tight focus:outline-none focus:bg-white"
+              className="mt-6 block w-full appearance-none rounded border border-gray-300 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:bg-white focus:outline-none"
             />
             {errors.title && touched.title ? (
-              <div className="text-red-500 mb-4 mt-1">{errors.title}</div>
+              <div className="mb-4 mt-1 text-red-500">{errors.title}</div>
             ) : null}
 
             <Field
               name="value"
               type="number"
               placeholder="Valor"
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-300 rounded py-3 px-4 mt-3 leading-tight focus:outline-none focus:bg-white"
+              className="mt-3 block w-full appearance-none rounded border border-gray-300 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:bg-white focus:outline-none"
             />
             {errors.value && touched.value ? (
-              <div className="text-red-500 mb-4 mt-1">{errors.value}</div>
+              <div className="mb-4 mt-1 text-red-500">{errors.value}</div>
             ) : null}
 
-            <div className="grid grid-cols-2 gap-3 mt-3">
+            <div className="mt-3 grid grid-cols-2 gap-3">
               <div
-                className={`flex justify-center items-center hover:cursor-pointer border border-gray-300 py-3 px-4 rounded ${
+                className={`flex items-center justify-center rounded border border-gray-300 py-3 px-4 hover:cursor-pointer ${
                   values.type === "income" ? "bg-green-100" : "bg-white"
                 }`}
                 onClick={() => setFieldValue("type", "income")}
               >
-                <BsArrowUpCircle className={`mr-2 text-green-500 text-2xl`} />
+                <BsArrowUpCircle className={`mr-2 text-2xl text-green-500`} />
                 <span className="">Entrada</span>
               </div>
 
               <div
-                className={`flex justify-center items-center  hover:cursor-pointer border border-gray-300 py-3 px-4 rounded ${
+                className={`flex items-center justify-center  rounded border border-gray-300 py-3 px-4 hover:cursor-pointer ${
                   values.type === "outcome" ? "bg-red-100" : "bg-white"
                 }`}
                 onClick={() => setFieldValue("type", "outcome")}
               >
-                <BsArrowDownCircle className={`mr-2 text-red-500 text-2xl`} />
+                <BsArrowDownCircle className={`mr-2 text-2xl text-red-500`} />
                 <span className="">Saída</span>
               </div>
             </div>
             {errors.type && touched.type ? (
-              <div className="text-red-500 mb-4 mt-1">{errors.type}</div>
+              <div className="mb-4 mt-1 text-red-500">{errors.type}</div>
             ) : null}
 
             <Field
               name="category"
               type="text"
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-300 rounded py-3 px-4 mt-3 leading-tight focus:outline-none focus:bg-white"
+              className="mt-3 block w-full appearance-none rounded border border-gray-300 bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:bg-white focus:outline-none"
             />
             {errors.category && touched.category ? (
-              <div className="text-red-500 mb-4 mt-1">{errors.category}</div>
+              <div className="mb-4 mt-1 text-red-500">{errors.category}</div>
             ) : null}
             <button
               type="submit"
-              className="bg-secondary hover:bg-buttonHover active:bg-buttonActive transition-all font-semibold text-white py-2 px-4 mt-3 rounded w-full"
+              className="mt-3 w-full rounded bg-secondary py-2 px-4 font-semibold text-white transition-all hover:bg-buttonHover active:bg-buttonActive"
             >
               Cadastrar
             </button>

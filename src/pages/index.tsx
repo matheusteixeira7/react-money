@@ -113,8 +113,8 @@ export default function Home() {
         isOpen={modalOpen}
         onRequestClose={() => setModalOpen(false)}
         ariaHideApp={false}
-        overlayClassName="bg-gray-900 bg-opacity-50 flex justify-center items-end md:items-center fixed inset-0"
-        className="bg-background p-8 rounded w-full md:max-w-xl"
+        overlayClassName="flex bg-gray-900 bg-opacity-50 justify-center items-end md:items-center fixed inset-0"
+        className="w-full rounded bg-background p-8 md:max-w-xl"
         contentLabel="Adicione uma transação"
       >
         <AddTransactionModal
@@ -123,8 +123,8 @@ export default function Home() {
         />
       </Modal>
 
-      <div className="transform -translate-y-24 max-w-4xl m-auto">
-        <div className="grid grid-flow-col auto-cols-max gap-4 md:justify-between overflow-auto mb-8 pl-6">
+      <div className="m-auto max-w-4xl -translate-y-24 transform">
+        <div className="mb-8 grid auto-cols-max grid-flow-col gap-4 overflow-auto pl-6 md:justify-between">
           <MainCard
             title="Entradas"
             value={income}
@@ -146,9 +146,9 @@ export default function Home() {
         </div>
 
         <div className="px-6">
-          <div className="flex justify-between items-center mb-4">
+          <div className="mb-4 flex items-center justify-between">
             <span className="text-xl">Listagem</span>
-            <span className="font-medium text-sm text-text">
+            <span className="text-sm font-medium text-text">
               {transactions.length}{" "}
               {transactions.length === 1 ? "item" : "itens"}
             </span>

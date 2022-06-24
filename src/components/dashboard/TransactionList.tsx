@@ -19,14 +19,14 @@ export const TransactionList = ({
   const transactionValue = transactionType === "income" ? "" : "-";
 
   return (
-    <div className="px-6 mb-4">
-      <div className="flex flex-col bg-white p-4 rounded-lg">
+    <div className="mb-4 px-6">
+      <div className="flex flex-col rounded-lg bg-white p-4">
         <span className="text-sm">{title}</span>
         <span className={`text-xl ${transactionTypeColor}`}>
           {`${transactionValue} ${value}`}
         </span>
 
-        <div className="flex justify-between text-sm text-text mt-5">
+        <div className="mt-5 flex justify-between text-sm text-text">
           <span>{category}</span>
           <span>
             {new Date(date).toLocaleDateString("pt-BR", {

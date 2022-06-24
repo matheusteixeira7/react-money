@@ -9,14 +9,14 @@ interface IProps {
 const DashboardHeader = ({ openModal }: IProps) => {
   return (
     <div>
-      <header className="bg-primary h-52 py-6">
-        <div className="flex justify-between max-w-4xl px-6 m-auto">
+      <header className="h-52 bg-primary py-6">
+        <div className="m-auto flex max-w-4xl justify-between px-6">
           <div className="flex items-center">
-            <div className="bg-secondary p-2 rounded-full mr-2">
-              <FiDollarSign className="text-white text-xl" />
+            <div className="mr-2 rounded-full bg-secondary p-2">
+              <FiDollarSign className="text-xl text-white" />
             </div>
 
-            <span className="text-white font-semibold text-sm md:text-lg">
+            <span className="text-sm font-semibold text-white md:text-lg">
               Dev Money
             </span>
           </div>
@@ -24,7 +24,7 @@ const DashboardHeader = ({ openModal }: IProps) => {
           <div className="flex items-center justify-between">
             <button
               onClick={openModal}
-              className="bg-primary brightness-125 p-3 rounded-[4px] text-white font-semibold my-6 hover:brightness-90 active:brightness-90 transition-all ease-in-out"
+              className="my-6 rounded-[4px] bg-primary p-3 font-semibold text-white brightness-125 transition-all ease-in-out hover:brightness-90 active:brightness-90"
             >
               Nova transação
             </button>
@@ -33,7 +33,7 @@ const DashboardHeader = ({ openModal }: IProps) => {
               title="Fazer logout"
               onClick={() => signOut({ callbackUrl: "/signin" })}
             >
-              <MdLogout className="text-white text-2xl ml-4 cursor-pointer hover:brightness-110 active:brightness-90 transition-all ease-in-out" />
+              <MdLogout className="ml-4 cursor-pointer text-2xl text-white transition-all ease-in-out hover:brightness-110 active:brightness-90" />
             </span>
           </div>
         </div>
