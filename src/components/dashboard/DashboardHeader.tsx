@@ -17,7 +17,7 @@ const DashboardHeader = ({ openModal }: IProps) => {
             </div>
 
             <span className="text-sm font-semibold text-white md:text-lg">
-              Dev Money
+              Vinance
             </span>
           </div>
 

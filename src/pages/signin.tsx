@@ -15,7 +15,7 @@ export default function SignIn() {
             <div className="mb-2 rounded-full bg-secondary p-2">
               <FiDollarSign className="text-4xl text-white" />
             </div>
-            <span className="text-lg font-semibold text-titles">Dev Money</span>
+            <span className="text-lg font-semibold text-titles">Vinance</span>
           </div>
           <span className="text-center text-titles">
             Faça seu login para continuar
